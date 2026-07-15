@@ -1,19 +1,32 @@
 # Ricky McKenzie
 
+### Senior Platform Engineer | Observability Lead | GCP & Cloud Logging Architecture
+
 619-518-3336 | rickymarly@gmail.com | [linkedin.com/in/ricky-mckenzie](https://linkedin.com/in/ricky-mckenzie) | [github.com/marly10](https://github.com/marly10)
 
 ---
 
 ## SUMMARY
 
-Bilingual (English/Spanish) Platform Engineer and Technical Lead with 5+ years in DevOps, observability, and cloud infrastructure. Currently leading the migration of 700+ Grafana dashboards from Splunk to BigQuery, building self-service CI/CD pipelines for GCP Cloud Logging, and managing enterprise observability platforms serving 10+ engineering teams. Strong focus on automation, cost optimization, and building tools that eliminate manual work.
+Bilingual (English/Spanish) Senior Platform Engineer and Technical Lead with 6+ years in DevOps, observability, and cloud infrastructure. Owns the organization-wide GCP logging roadmap at Viasat, defining centralized and decentralized logging standards across 1,000+ GCP projects and driving architectural decisions adopted by engineering teams and leadership. Currently leading the migration of 700+ Grafana dashboards from Splunk to BigQuery, designing and operating OpenTelemetry (OTel) log collection pipelines via Bindplane at 5,000+ host scale, and building self-service CI/CD platforms for GCP Cloud Logging. Strong track record of turning complex, manual engineering problems into automated, scalable systems.
+
+---
+
+## KEY IMPACT
+
+- **1,000+ GCP projects** under centralized logging governance and roadmap ownership
+- **700+ dashboards migrated** across 5 Grafana environments (US, EU, AU); 2,078 panels bulk-remediated in a single automated pass
+- **5,000+ hosts** running through the production OTel/Bindplane log pipeline across US and EU
+- **18 anomaly detectors** deployed to production; 100+ candidates in development
+- **~$210K/month** modeled savings from org-wide log exclusion strategy at scale
+- **$30K/month** AWS cost reduction from infrastructure optimization in prior role
 
 ---
 
 ## EDUCATION
 
 **University of San Diego (USD)** — M.S. Engineering Management and Leadership Science
-Fall 2025 – Spring 2027
+Fall 2025 – Spring 2027 (in progress)
 
 **Point Loma Nazarene University (PLNU)** — B.A. Computer Science, Software Engineering
 
@@ -22,41 +35,56 @@ Fall 2025 – Spring 2027
 ## EXPERIENCE
 
 ### Viasat Inc — Technical Lead, Observability & Platform Engineering
+
 San Diego, CA | Feb 2025 – Present
 
-**Splunk to GCP Migration (OBSRV-1174, OBSRV-1234, OBSRV-1264)**
-- Leading migration of 700+ Splunk dashboards across 5 Grafana environments (US, EU, AU), converting SPL, Snowflake SQL, and Druid queries to BigQuery — 78 dashboards and 762 panels converted to date
-- Built automated dashboard conversion tooling using Claude Code with 40+ custom skills that handle table mapping, schema validation, variable substitution, and bulk SQL rewriting across 589 dashboards (2,078 panels patched for OBSRV-1253 time filter remediation)
-- Designed and executed the Splunk Bindplane UF shutdown plan — validated rsyslog routing conditions against 5,000+ ISSRV hosts across 13 indexes, proving 92-100% data parity with Splunk UF
-- Discovered and documented a GCP Cloud Logging log router throughput issue where BQ sinks silently drop 88% of entries when filtering on OTel-transformed labels — created POC sinks with evidence, escalated to Google Cloud support
-- Reverse-engineered a 6-bit-per-minute bitmask encoding in BQ dailystats BYTES columns (1080 bytes = 1440 minutes), enabling conversion of a previously "impossible" Splunk panel
+**GCP Logging Architecture & Strategy**
 
-**Self-Service Log Router (central_log_sink_router)**
-- Built a complete self-service CI/CD system for GCP Cloud Logging log router management — teams define YAML routes, GitHub Actions validates filters against live Cloud Logging, tests IAM, and applies sink changes on merge
-- 7 automated workflows: validate → test → apply → drift detection → inventory refresh → PR helpers → auto-generate from issue forms
-- Manages log routing across prod and preprod for 14 BQ datasets, with automated PR comments showing filter test results, IAM status, and commit-level change tracking
+- Serves as Viasat's internal logging platform lead — owns the organization-wide GCP logging roadmap, defines centralized and decentralized logging standards across 1,000+ GCP projects, and authors architectural designs adopted by engineering teams and platform leadership
+- Designed the org-scale centralized logging architecture end-to-end: org-level aggregating sink auto-capturing all GCP projects, three regional log buckets (US/EU/AU), per-team scoped Log Views, BigQuery Linked Datasets, and per-team Authorized Views — built on a non-intercepting sink model that preserves local team alerting while enabling cross-org analytics, cost attribution, and unified log search
+- Authored the internal logging reference guide defining how teams access centralized logs (Log Scope, Log Analytics, direct BigQuery SQL) and the data governance model for scoped access at org scale; presented architecture to engineering leadership and cross-functional stakeholders
 
-**BigQuery Cost Analysis Platform (bq-analysis)**
-- Built and deployed a Flask web application on Cloud Run (IAP-protected) providing BigQuery inventory, cost analysis, and optimization recommendations across all OBSV-managed GCP projects
-- Pages include global inventory, per-team views, dead table detection (zero queries in 60 days), slot monitoring, and GC network migration tracker
-- Automated project onboarding pipeline: IAM check → BQ scan → schema pull → storage stats → 60-day jobs snapshot → deploy
+**Splunk → BigQuery Migration & Automation**
 
-**Infrastructure & Operations**
-- Automated certificate signing and management for Splunk servers using Ansible playbooks for CSR, private key, and intermediary key management through internal PKI
-- Automated AWS Load Balancer certificate signing via the ACM API
+- Leading migration of 700+ Splunk dashboards across 5 Grafana environments (US, EU, AU), converting SPL, Snowflake SQL, and Druid queries to BigQuery — 78 dashboards and 762 panels completed; bulk-remediated 2,078 panels across 589 dashboards for a time-filter compliance issue
+- Built automated conversion tooling using Claude Code with 40+ custom agentic skills handling table mapping, schema validation, variable substitution, and bulk SQL rewriting — reducing week-long manual work to hours per dashboard
+- Reverse-engineered a 6-bit-per-minute bitmask encoding in BigQuery BYTES columns (1080 bytes = 1440 minutes), enabling conversion of a previously unconvertable Splunk panel; discovered and escalated a GCP Cloud Logging throughput bug where OTel-transformed label filters silently drop 88% of log entries at scale
+
+**OpenTelemetry Log Pipeline**
+
+- Designed and operated a production Bindplane OpenTelemetry (OTel) log collection pipeline replacing Splunk Universal Forwarder — RFC5424 syslog → Bindplane OTel Gateway → GCP Cloud Logging → 14 BigQuery datasets; 5,000+ ISSRV hosts across 6 log indexes in US and EU prod
+- Managed Bindplane OTel collector configurations end-to-end — receivers, processors, and exporters for syslog ingestion; translated Splunk host routing patterns to RE2 log router filters for GCP Cloud Logging, including discovery and fix of systematic regex failures silently dropping EU hosts
+- Validated 92–100% data parity across 12 log indexes with a 3-way benchmark (Splunk vs OTel rsyslog pipeline vs legacy Splunk UF pipeline) and a custom 5-tier host classification system before decommissioning the legacy forwarder fleet
+
+**Self-Service Log Routing CI/CD**
+
+- Built a GitOps-based self-service system for GCP Cloud Logging log router management — teams define YAML routes, 7 GitHub Actions workflows validate filters against live Cloud Logging, test IAM, detect drift, and apply sink changes on merge; manages routing across prod and preprod for 14 BigQuery datasets
+- Handles the full lifecycle: filter validation, IAM verification, diff-based PR comments showing exactly what changes, automated inventory refresh, and issue-form-driven onboarding
+
+**Engineering Analytics Platform & Tooling**
+
+- Deployed a live BigQuery analytics web application (Cloud Run, IAP-protected) serving the engineering org with BigQuery inventory, cost analysis, dead table detection, slot monitoring, and migration tracking across all observability-managed GCP projects — functions as a living engineering portfolio and decision-support tool for platform leadership
+- Modeled log ingestion exclusion impact at org scale — simulated 70% exclusion filter coverage across a 400-project organization; identified ~$210K/month in potential Cloud Logging ingestion cost reduction; findings adopted by platform leadership to set exclusion filter targets and prioritize cost reduction initiatives
+- Automated project onboarding from days to hours: IAM check → BQ scan → schema pull → storage stats → 60-day query history snapshot → deploy; Ansible automation for PKI certificate management (Splunk servers) and AWS ACM certificate signing
 - Conducted hiring interviews and managed two interns, including a Data Platform intern (summer 2025)
 
+**Anomaly Detection & Alerting Platform**
+
+- Built and deployed a containerized BigQuery-powered anomaly detection system monitoring 6 log datasets — 18 detectors running continuously in production, surfacing threshold breaches, behavioral anomalies, and correlated failure patterns as structured Slack alerts with plain-English descriptions, affected host samples, and confidence scores
+- Designed the alert output standard to be immediately actionable: every alert leads with a one-line plain-English summary, includes raw counts and affected terminal IDs as evidence, and states confidence explicitly; GCS-backed audit trail captures all detector outputs for replay and review
+- Managing a pipeline of 100 candidate detectors (50 standalone log-signal detectors + 50 enriched detectors combining log signals with correlation data); phased promotion to production as each candidate is validated against real incident history
+
 ### Viasat Inc — DevOps Engineer & Splunk Product Owner
+
 San Diego, CA | Dec 2023 – Jan 2025
 
-- Established relationships with Splunk representatives and engineers, negotiated annual Splunk license renewals, defined Jira Epics, and planned quarterly updates
-- Delegated daily Splunk maintenance tasks to ensure optimal productivity and momentum
-- Upgraded Splunk software from 8.2.5 to 9.0.5 across 45 EC2 instances (US + EU), spanning 7 dev and 38 prod environments
-- Created AWS target groups for routing traffic and balancing ingestion across the Splunk ecosystem
-- Migrated EC2 volumes from gp2 to gp3, resulting in a $30K/month reduction in AWS costs
-- Ensured uptime with Splunk in AZ deployments and conducted general Linux debugging
+- Owned the Splunk enterprise platform as sole technical product lead — managed vendor relationships, negotiated annual license renewals, and drove quarterly roadmap planning for a platform serving 10+ engineering teams across US and EU
+- Led a major Splunk version upgrade (8.2.5 → 9.0.5) across 45 EC2 instances (7 dev + 38 prod, US + EU), coordinating across teams while maintaining platform availability
+- Reduced AWS infrastructure costs by $30K/month through EC2 volume migration (gp2 → gp3) and optimized target group routing for Splunk ingestion workloads
+- Maintained high-availability Splunk deployments (AZ-distributed Search Heads, Indexers, and Heavy Forwarders) and resolved cross-platform incidents across engineering teams
 
 ### Viasat Inc — DevOps Engineer
+
 San Diego, CA | Apr 2022 – Nov 2023
 
 - Deployed general customer enhancements, provided code reviews, deployments via Ansible, and merges for the Sensu Classic to Sensu Go transition
@@ -66,7 +94,8 @@ San Diego, CA | Apr 2022 – Nov 2023
 - Deployed new Splunk infrastructure: Search Heads, Indexers, Heavy Forwarders, Management servers
 - Worked with multiple teams across the company on troubleshooting cross-platform issues
 
-### Dexcom Inc — System Administrator 1 (Freelance)
+### Dexcom Inc — System Administrator 1 
+
 San Diego, CA | May 2021 – Mar 2022
 
 - Participated in DevSecOps meetings to track task status and align on priorities
@@ -76,17 +105,19 @@ San Diego, CA | May 2021 – Mar 2022
 - Documented processes for VM Manager and Ops Agent management on Atlassian Confluence
 - Automated inventory tasks for semi-annual ISO/SOC2 compliance audits
 
-### The Tides Group — Software Engineer (Freelance)
+### The Tides Group — Software Engineer 
+
 La Jolla, CA | Sep 2019 – May 2021
 
 - Managed, developed, and deployed data collection bots in Java, Python, JavaScript, and PHP for collecting data from websites and APIs
 - Deployed GCP-hosted dashboards presenting portfolio health and performance to CEO and executive leadership
 
-### Give Back Wireless, Inc. — Mobile Account & Operations Manager
+### Give Back Wireless, Inc. — Operations Manager
+
 San Diego, CA | Feb 2016 – Nov 2020
 
-- Business development representative for West Coast region and solution provider under the AT&T umbrella, providing customer service to 350+ customers
-- Managed, trained, and scheduled team of 6 triage technicians to ensure product quality and assurance of inventory
+- Managed, hired, trained, and scheduled a team of 6 technicians — responsible for performance management, product quality assurance, and day-to-day operations
+- Grew West Coast regional sales as an AT&T umbrella partner, providing account management for 350+ customers
 
 ---
 
@@ -95,28 +126,19 @@ San Diego, CA | Feb 2016 – Nov 2020
 **Languages:** Python, Bash, SQL (BigQuery, Snowflake), Terraform, Ansible, Go, C++, Java
 
 **Cloud Platforms:**
+
 - GCP: BigQuery, Cloud Logging, Cloud Run, IAP, Artifact Registry, Cloud Monitoring, Compute Engine, IAM, Cloud Storage, Analytics Hub
 - AWS: EC2, Load Balancer, VPC, Certificate Manager, IAM, Lambda, Billing
 
-**Observability:** Splunk (admin + SPL), Grafana (dashboard development + BQ plugin), Prometheus, Sensu, ELK Stack, Bindplane (OTel collector configuration)
+**Observability:** Splunk (admin + SPL), Grafana (dashboard development + BQ plugin), Prometheus, Sensu, ELK Stack
 
-**Infrastructure:** Docker, Kubernetes, GitHub Actions (CI/CD pipeline design), Ansible, Terraform, Linux administration
+**OpenTelemetry (OTel):** Bindplane pipeline design (receivers, processors, exporters), OTel log data model & semantic conventions, collector configuration & deployment, GCP Cloud Logging OTel integration, log router sink management, high-throughput pipeline troubleshooting
+
+**Infrastructure:** Docker, GitHub Actions (CI/CD pipeline design), Ansible, Terraform, Linux administration
 
 **Data:** BigQuery (schema design, cost optimization, clustering, INFORMATION_SCHEMA analytics), Snowflake SQL conversion, Druid SQL conversion
 
-**Tools:** Git, GitHub Enterprise, Jira, Confluence (API automation), Claude Code (custom skills + agents)
-
----
-
-## CERTIFICATIONS
-
-- DevOps Fundamentals — Cloud Academy (2022)
-- Docker in Depth — Cloud Academy (2022)
-- Essential Google Cloud Infrastructure: Foundation — Coursera (2021)
-- Architecting with Google Kubernetes Engine: Foundations — Coursera (2021)
-- Google Cloud Fundamentals: Core Infrastructure — Coursera (2021)
-- Solving Infrastructure Challenges with Terraform — Cloud Academy (2021)
-- Google Cloud Platform Fundamentals — Cloud Academy (2021)
+**Tools:** Git, GitHub Enterprise, Jira, Confluence (API automation), Claude Code (40+ custom agentic skills, multi-agent automation pipelines, AI-assisted engineering workflows)
 
 ---
 
