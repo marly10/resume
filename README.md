@@ -1,6 +1,6 @@
 # Ricky McKenzie
 
-### Senior Platform Engineer | Observability Lead | GCP & Cloud Logging Architecture
+### Senior Platform Engineer | Observability Lead | AIOps & AI-Assisted Engineering
 
 619-518-3336 | rickymarly@gmail.com | [linkedin.com/in/ricky-mckenzie](https://linkedin.com/in/ricky-mckenzie) | [github.com/marly10](https://github.com/marly10)
 
@@ -48,7 +48,6 @@ San Diego, CA | Feb 2025 – Present
 
 - Leading migration of 700+ Splunk dashboards across 5 Grafana environments (US, EU, AU), converting SPL, Snowflake SQL, and Druid queries to BigQuery — 78 dashboards and 762 panels completed; bulk-remediated 2,078 panels across 589 dashboards for a time-filter compliance issue
 - Built automated conversion tooling using Claude Code with 40+ custom agentic skills handling table mapping, schema validation, variable substitution, and bulk SQL rewriting — reducing week-long manual work to hours per dashboard
-- Reverse-engineered a 6-bit-per-minute bitmask encoding in BigQuery BYTES columns (1080 bytes = 1440 minutes), enabling conversion of a previously unconvertable Splunk panel; discovered and escalated a GCP Cloud Logging throughput bug where OTel-transformed label filters silently drop 88% of log entries at scale
 
 **OpenTelemetry Log Pipeline**
 
@@ -68,7 +67,7 @@ San Diego, CA | Feb 2025 – Present
 - Automated project onboarding from days to hours: IAM check → BQ scan → schema pull → storage stats → 60-day query history snapshot → deploy; Ansible automation for PKI certificate management (Splunk servers) and AWS ACM certificate signing
 - Conducted hiring interviews and managed two interns, including a Data Platform intern (summer 2025)
 
-**Anomaly Detection & Alerting Platform**
+**AIOps: Anomaly Detection & Alerting Platform**
 
 - Built and deployed a containerized BigQuery-powered anomaly detection system monitoring 6 log datasets — 18 detectors running continuously in production, surfacing threshold breaches, behavioral anomalies, and correlated failure patterns as structured Slack alerts with plain-English descriptions, affected host samples, and confidence scores
 - Designed the alert output standard to be immediately actionable: every alert leads with a one-line plain-English summary, includes raw counts and affected terminal IDs as evidence, and states confidence explicitly; GCS-backed audit trail captures all detector outputs for replay and review
@@ -138,7 +137,9 @@ San Diego, CA | Feb 2016 – Nov 2020
 
 **Data:** BigQuery (schema design, cost optimization, clustering, INFORMATION_SCHEMA analytics), Snowflake SQL conversion, Druid SQL conversion
 
-**Tools:** Git, GitHub Enterprise, Jira, Confluence (API automation), Claude Code (40+ custom agentic skills, multi-agent automation pipelines, AI-assisted engineering workflows)
+**AIOps & AI-Assisted Engineering:** Production anomaly detection and automated alerting pipeline design (threshold + behavioral detectors), custom skill and agent authoring across Claude (Claude Code, subagents, skills) and ChatGPT (custom GPTs, prompt engineering), multi-agent automation pipeline design, AI-assisted engineering workflows
+
+**Tools:** Git, GitHub Enterprise, Jira, Confluence (API automation), Claude Code (40+ custom agentic skills)
 
 ---
 
